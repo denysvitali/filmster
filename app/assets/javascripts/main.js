@@ -1,10 +1,11 @@
 $(function(){
+  let IMDB_API_KEY = 'ab3927766ef5b5254ec77d1289540da8';
   let form=$('#movie-search');
   form.submit(function(e){
     e.preventDefault();
 
     $.ajax({
-      url: 'https://api.themoviedb.org/3/search/movie?api_key=ab3927766ef5b5254ec77d1289540da8',
+      url: 'https://api.themoviedb.org/3/search/movie?api_key=' + IMDB_API_KEY,
       data: form.serialize()
     })
     .done(function(data){
@@ -52,7 +53,7 @@ $(function(){
     var settings = {
       "async": false,
       "crossDomain": true,
-      "url": "https://api.themoviedb.org/3/configuration?api_key=ab3927766ef5b5254ec77d1289540da8",
+      "url": "https://api.themoviedb.org/3/configuration?api_key=" + IMDB_API_KEY,
       "method": "GET",
       "headers": {},
       "data": "{}"
@@ -73,7 +74,7 @@ $(function(){
 
     $.ajax({
       url: 'https://api.themoviedb.org/3/movie/' + id + '?',
-      data: { "api_key": "ab3927766ef5b5254ec77d1289540da8" }
+      data: { "api_key": IMDB_API_KEY }
     })
     .done(function(data){
       displayMovie(data);
