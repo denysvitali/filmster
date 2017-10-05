@@ -1,0 +1,68 @@
+.row
+  .col-xs-12.col-md-12.text-center
+    h2
+      = @serie.title
+    .movie_genres.margin-20
+      strong 
+        -@serie.genre.split(", ").each do |x|
+          span.genre_tags
+            = x
+    / Lets make a call to the api to grab the base image url here
+    = image_tag("https://image.tmdb.org/t/p/w185" + @serie.poster)
+    
+.row.movie-details.margin-20
+  .col-xs-12.col-md-6.movie-overview.padding-30.right-padding-100
+    .row
+      .col-xs-12.col-md-12
+        p.text-justify
+          = @serie.plot
+    - if @serie.released
+      .row
+        .col-xs-12.col-md-12
+          strong Release Date: 
+          = @serie.release_date
+    .row
+      .col-xs-12.col-md-12
+        strong Popularity: 
+        = @serie.popularity.to_f.round(2)
+    .row
+      .col-cs-12.col-md-12
+        strong Average Vote: 
+        = @serie.average_vote
+        | /10
+    .row
+      .col-cs-12.col-md-12
+        strong Vote Count: 
+        = @serie.vote_count
+    - unless @serie.homepage.length == 0
+      .row
+        .col-cs-12.col-md-12
+          strong Web Site:  
+          = link_to @serie.homepage, @serie.homepage, target: '_blank'
+  
+  .col-xs-12.col-md-6.right-padding-60
+    h2 
+      | Reviews
+    hr/
+    - if @serie.reviews.present?
+      - @serie.reviews.each do |review|
+        .row
+          - if user_signed_in?
+            .col-xs-2.col-md-2 id="upvotes_field_#{review.id}"
+              = render partial: 'upvotes/upvote_fields', locals: {review: review, current_user: current_user}
+          .col-xs-4.col-md-2
+            = link_to review.user_username, user_path(review.user)
+          .col-xs-6.col-md-8
+            = review.comment
+        hr/
+    - else
+      h3 
+        | No Reviews Yet!
+
+    - if user_signed_in? && !current_user.reviewed?(@serie)
+        form#rating-form action="/reviews" method="POST" 
+          input name="authenticity_token" type="hidden" value="${window._token}" /
+          input name="tmdb_id" type="hidden" value="#{@serie.tmdb_id}" /
+          textarea.form-control name="review[comment]" placeholder=("Your review here.") 
+          br/
+          input.btn.btn-success.pull-right type="submit" /

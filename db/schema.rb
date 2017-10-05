@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170715093048) do
+ActiveRecord::Schema.define(version: 20171005221600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,8 +51,30 @@ ActiveRecord::Schema.define(version: 20170715093048) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "serie_id"
     t.index ["movie_id"], name: "index_reviews_on_movie_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "title"
+    t.string "plot"
+    t.string "release_date"
+    t.boolean "released", default: false, null: false
+    t.string "runtime"
+    t.string "popularity"
+    t.string "genre"
+    t.string "language"
+    t.string "budget"
+    t.string "average_vote"
+    t.string "vote_count"
+    t.string "poster"
+    t.string "homepage"
+    t.string "tmdb_id"
+    t.string "imdb_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tmdb_id"], name: "index_series_on_tmdb_id"
   end
 
   create_table "upvotes", force: :cascade do |t|

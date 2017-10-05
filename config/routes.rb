@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :reviews
   get 'movies/:tmdb_id', to: 'movies#show', as: :movies
+  get 'series/:tmdb_id', to: 'series#show', as: :series
 
   resources :users, only: [:show]
   resources :relationships, only: [:create, :destroy]

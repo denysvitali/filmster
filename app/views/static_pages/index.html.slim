@@ -3,12 +3,14 @@
     h1.text-center Find Movies
     .row
       .search_form.col-xs-12.col-md-12
-        form#movie-search
-          .col-xs-8
+        form#movie-search.col-xs-8.col-xs-offset-2
             input.form-control name="query" placeholder=("Enter Movie Name") type="text" /
-          .col-xs-4
-            button.btn.btn-success type="submit" Submit
-      
+    h1.text-center Find Series
+    .row
+      .search_form.col-xs-12.col-md-12
+        form#series-search.col-xs-8.col-xs-offset-2
+            input.form-control name="query" placeholder=("Enter Series Name") type="text" /
+    
     hr/
     .row
       .latest-reviews
@@ -22,7 +24,8 @@
           hr/
    
   .col-xs-12.col-md-8
-    #movies
+    #results
+      h1 Movies
       .grid.top-movies
         -@movies.results.each do |movie|
           .grid-item.movie-container
@@ -30,3 +33,11 @@
               = link_to image_tag("https://image.tmdb.org/t/p/w154" + movie.poster_path), movies_path(tmdb_id: movie.id)
             .movie_name
               = movie.title
+      h1 Series
+      .grid.top-series
+        -@series.results.each do |serie|
+          .grid-item.movie-container
+            .serie_image
+              = link_to image_tag("https://image.tmdb.org/t/p/w154" + serie.poster_path), series_path(tmdb_id: serie.id)
+            .serie_name
+              = serie.title
