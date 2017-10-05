@@ -36,8 +36,8 @@
       h1 Series
       .grid.top-series
         -@series.results.each do |serie|
-          .grid-item.movie-container
+          .grid-item.serie-container
             .serie_image
               = link_to image_tag("https://image.tmdb.org/t/p/w154" + serie.poster_path), series_path(tmdb_id: serie.id)
             .serie_name
-              = serie.title
+              = serie.name
