@@ -193,7 +193,7 @@ $(function(){
           </div>
 
           <div class = "col-xs-12 col-md-5">
-            <h2 class= "text-center">${serie["title"]}</h2>
+            <h2 class= "text-center">${serie["name"]}</h2>
             <p><strong>Summary:</strong> ${serie["overview"]}</p>
             <p><strong>Popularity:</strong> ${serie["popularity"]}</p>
             <p><strong>Website:</strong> <a href=${serie["homepage"]} target="blank">${serie["homepage"]}</a></p>
